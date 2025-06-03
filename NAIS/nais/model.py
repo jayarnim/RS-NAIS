@@ -38,14 +38,22 @@ class Module(nn.Module):
         # generate layers
         self._init_layers()
 
-    def forward(self, user_idx, item_idx):
+    def forward(
+        self, 
+        user_idx: torch.Tensor, 
+        item_idx: torch.Tensor,
+    ):
         """
         user_idx: (B,)
         item_idx: (B,)
         """
         return self._score(user_idx, item_idx)
 
-    def predict(self, user_idx, item_idx):
+    def predict(
+        self, 
+        user_idx: torch.Tensor, 
+        item_idx: torch.Tensor,
+    ):
         """
         user_idx: (B,)
         item_idx: (B,)
