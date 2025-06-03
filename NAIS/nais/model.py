@@ -10,10 +10,10 @@ class Module(nn.Module):
         n_users: int,
         n_items: int,
         n_factors: int,
+        score_fn_type: SCORE_FN_TYPE,
+        beta: float,
+        dropout: float,
         trn_pos_per_user: torch.Tensor,
-        score_fn_type: SCORE_FN_TYPE = "concat",
-        beta: float = 0.5,
-        dropout: float = 0.2,
     ):
         super(Module, self).__init__()
         
@@ -30,10 +30,10 @@ class Module(nn.Module):
         self.n_users = n_users
         self.n_items = n_items
         self.n_factors = n_factors
-        self.trn_pos_per_user = trn_pos_per_user.to(self.device)
         self.score_fn_type = score_fn_type
         self.beta = beta
         self.dropout = dropout
+        self.trn_pos_per_user = trn_pos_per_user.to(self.device)
 
         # generate layers
         self._init_layers()
