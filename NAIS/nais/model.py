@@ -66,12 +66,13 @@ class Module(nn.Module):
     def _score(self, user_idx, item_idx):
         # user history: (B, H)
         user_histories = self.trn_pos_per_user[user_idx]
-        # mask: same as target
-        mask_target = user_histories == self.n_items
-        # mask: padding
-        mask_padding = user_histories == item_idx.unsqueeze(1)
-        # mask: full
-        mask = mask_target & mask_padding
+        
+        # mask to current target item from history
+        mask_target = user_histories == item_idx.unsqueeze(1)
+        # mask to padding
+        mask_padding = user_histories == self.n_items
+        # final mask
+        mask = mask_target | mask_padding
 
         # Embeddings
         p_i = self.embed_target(item_idx)              # (B, D)
