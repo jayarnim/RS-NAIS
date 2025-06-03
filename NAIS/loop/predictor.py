@@ -19,6 +19,8 @@ def predict(
 ):
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     device = torch.device(DEVICE)
+
+    model = model.to(device)
     
     model.eval()
 
